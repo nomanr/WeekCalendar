@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         weekCalendar.moveToNext();
     }
 
+
     public void onPreviousClick(View view) {
         weekCalendar.moveToPrevious();
     }

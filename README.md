@@ -1,3 +1,4 @@
+
 <br/><br/><img src="https://raw.githubusercontent.com/nomanr/WeekCalendar/master/images/cover.png">
 <p><b>WeekCalendar</b> is a library which provides a weekly calendar. </p>
 The sample project includes the usage of the library.
@@ -10,7 +11,7 @@ Feel free to fork or issue pull requests on github. Issues can be reported on th
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-WeekCalendar-green.svg?style=true)](https://android-arsenal.com/details/1/2905)
 
 
-<h3>Demo<h3/>
+<h3>Demo</h3>
 
 <img src="https://raw.githubusercontent.com/nomanr/WeekCalendar/master/images/gif.gif"width="400">
 
@@ -24,7 +25,7 @@ Feel free to fork or issue pull requests on github. Issues can be reported on th
 <h5>Gradle</h5>
 
     dependencies {
-       compile 'noman.weekcalendar:weekcalendar:1.0.1'
+       compile 'noman.weekcalendar:weekcalendar:1.0.3'
     }
 
  <h5>Maven</h5>
@@ -60,6 +61,7 @@ There are a few xml attributes to customise the calendar. If you feel that any c
  - `weekBackgroundColor`
  - `selectedBgColor`
  - `todaysDateBgColor`
+ - `dayNameLength`
 
 ----------
 
@@ -71,7 +73,8 @@ There are a few xml attributes to customise the calendar. If you feel that any c
        android:layout_height="65dp"
        android:background="@color/colorPrimary"
        app:numOfPages="150"
-       app:todaysDateBgColor="#ffffffff"/>
+       app:dayNameLength="threeLetters"
+       app:todaysDateBgColor="#ffffff"/>
 
 <h5>Explained</h5>
 
@@ -84,6 +87,7 @@ There are a few xml attributes to customise the calendar. If you feel that any c
  - `weekBackgroundColor`  same as `daysBackgroundColor`
  - `selectedBgColor` By default, its color is set to be `colorAccent`, if you've that attribute in attribute in `color.xml`, then the backgroud color will be that one. Otherwise the pink color shown in the demo.
  - `todaysDateBgColor` todays date background color, same as `selectedBgColor`.
+ - `dayNameLength` week day name length, `singleLetter` means (S,M,T..) and `threeLetters` means (Sun, Mun, Tue..)
 
 
 ----------
@@ -127,5 +131,4 @@ There are a few xml attributes to customise the calendar. If you feel that any c
     See the License for the specific language governing permissions and
     limitations under the License.
     
-
 
