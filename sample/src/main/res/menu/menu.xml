@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_github"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_github"
+        android:title="@string/action_git_repo"/>
+
+</menu>

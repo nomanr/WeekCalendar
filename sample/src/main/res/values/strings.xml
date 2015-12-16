@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WeekCalendar</string>
+    <string name="action_git_repo">Git Repo</string>
+</resources>
