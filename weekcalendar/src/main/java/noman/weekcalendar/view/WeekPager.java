@@ -74,6 +74,8 @@ public class WeekPager extends ViewPager {
         if (typedArray != null)
             setBackgroundColor(typedArray.getColor(R.styleable.WeekCalendar_daysBackgroundColor,
                     ContextCompat.getColor(getContext(), R.color.colorPrimary)));
+        if(WeekFragment.selectedDateTime == null)
+            WeekFragment.selectedDateTime = new DateTime();
     }
 
     @Subscribe
@@ -89,6 +91,7 @@ public class WeekPager extends ViewPager {
 
     @Subscribe
     public void reset(Event.ResetEvent event) {
+        WeekFragment.selectedDateTime = null;
         initPager(new DateTime());
     }
 

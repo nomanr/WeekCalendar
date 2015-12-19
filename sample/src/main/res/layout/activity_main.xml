@@ -55,4 +55,12 @@
         android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+
+    <Button
+        android:onClick="onSelectedDateClick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/selectedDateButton"
+        android:layout_below="@+id/today"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
