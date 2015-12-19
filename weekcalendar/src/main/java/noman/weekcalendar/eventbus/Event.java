@@ -24,6 +24,7 @@ public class Event {
     public static class UpdateSelectedDateEvent {
         /***
          * Direction -1 for backgroun and 1 for forward
+         *
          * @param direction
          */
         public UpdateSelectedDateEvent(int direction) {
@@ -49,7 +50,20 @@ public class Event {
 
         private int direction;
     }
-    public static class ResetEvent{
 
+    public static class ResetEvent {
     }
+
+    public static class SetSelectedDateEvent {
+        public SetSelectedDateEvent(DateTime selectedDate) {
+            this.selectedDate = selectedDate;
+        }
+
+        public DateTime getSelectedDate() {
+            return selectedDate;
+        }
+
+        private DateTime selectedDate;
+    }
+
 }

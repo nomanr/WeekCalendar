@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onResetClick(View view) {
-        weekCalendar.reset();
+        weekCalendar.setSelectedDate(new DateTime().withDate(2016,12,30));
+
     }
 }

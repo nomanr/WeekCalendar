@@ -44,15 +44,15 @@ public class WeekPager extends ViewPager {
             NUM_OF_PAGES = typedArray.getInt(R.styleable.WeekCalendar_numOfPages, 100);
         }
         setId(idCheck());
-        initPager();
+        initPager(new DateTime());
         BusProvider.getInstance().register(this);
 
     }
 
-    private void initPager() {
+    private void initPager(DateTime dateTime) {
         pos = NUM_OF_PAGES / 2;
         adapter = new PagerAdapter(getContext(), ((AppCompatActivity) getContext())
-                .getSupportFragmentManager(), new DateTime(), typedArray);
+                .getSupportFragmentManager(),dateTime, typedArray);
         setAdapter(adapter);
         addOnPageChangeListener(new ViewPager
                 .SimpleOnPageChangeListener() {
@@ -74,8 +74,6 @@ public class WeekPager extends ViewPager {
         if (typedArray != null)
             setBackgroundColor(typedArray.getColor(R.styleable.WeekCalendar_daysBackgroundColor,
                     ContextCompat.getColor(getContext(), R.color.colorPrimary)));
-        WeekFragment.selectedDate = new DateTime();
-
     }
 
     @Subscribe
@@ -91,7 +89,13 @@ public class WeekPager extends ViewPager {
 
     @Subscribe
     public void reset(Event.ResetEvent event) {
-        initPager();
+        initPager(new DateTime());
+    }
+
+    @Subscribe
+    public void setSelectedDate(Event.SetSelectedDateEvent event){
+        WeekFragment.selectedDateTime = event.getSelectedDate();
+        initPager(event.getSelectedDate());
     }
 
     private int idCheck() {

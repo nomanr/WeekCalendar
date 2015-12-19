@@ -42,9 +42,9 @@ public class WeekFragment extends Fragment {
     public static String DATE_KEY = "date_key";
     private GridView gridView;
     private WeekAdapter weekAdapter;
-    public static DateTime selectedDate = new DateTime();
+    public static DateTime selectedDateTime = new DateTime();
     private DateTime startDate, endDate, midDate;
-    private boolean isVisible, isSameWeek;
+    private boolean isVisible;
 
     @Nullable
     @Override
@@ -68,14 +68,14 @@ public class WeekFragment extends Fragment {
         endDate = days.get(days.size() - 1);
 
         weekAdapter = new WeekAdapter(getActivity(), days);
-        gridView.setAdapter(new WeekAdapter(getActivity(), days));
+        gridView.setAdapter(weekAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BusProvider.getInstance().post(new Event.OnDateClickEvent(weekAdapter.getItem
                         (position)));
-                selectedDate = weekAdapter.getItem(position);
+                selectedDateTime = weekAdapter.getItem(position);
                 BusProvider.getInstance().post(new Event.InvalidateEvent());
             }
         });
@@ -84,12 +84,12 @@ public class WeekFragment extends Fragment {
     @Subscribe
     public void updateSelectedDate(Event.UpdateSelectedDateEvent event) {
         if (isVisible) {
-            selectedDate = selectedDate.plusDays(event.getDirection());
-            if (selectedDate.toLocalDate().equals(endDate.plusDays(1).toLocalDate())
-                    || selectedDate.toLocalDate().equals(startDate.plusDays(-1).toLocalDate())) {
-                if (!(selectedDate.toLocalDate().equals(startDate.plusDays(-1).toLocalDate()) &&
+            selectedDateTime = selectedDateTime.plusDays(event.getDirection());
+            if (selectedDateTime.toLocalDate().equals(endDate.plusDays(1).toLocalDate())
+                    || selectedDateTime.toLocalDate().equals(startDate.plusDays(-1).toLocalDate())) {
+                if (!(selectedDateTime.toLocalDate().equals(startDate.plusDays(-1).toLocalDate()) &&
                         event.getDirection() == 1)
-                        && !(selectedDate.toLocalDate().equals(endDate.plusDays(1)
+                        && !(selectedDateTime.toLocalDate().equals(endDate.plusDays(1)
                         .toLocalDate()) && event.getDirection() == -1))
                     BusProvider.getInstance().post(new Event.SetCurrentPageEvent(event.getDirection()));
             }
@@ -124,7 +124,6 @@ public class WeekFragment extends Fragment {
     private class WeekAdapter extends BaseAdapter {
         private ArrayList<DateTime> days;
         private Context context;
-        private boolean newMonth;
         private DateTime firstDay;
 
         public WeekAdapter(Context context, ArrayList<DateTime> days) {
@@ -170,13 +169,13 @@ public class WeekFragment extends Fragment {
            // solidCircle.mutate().setAlpha(200);
             //holoCircle.mutate().setAlpha(200);
 
-            if (firstDay.getMonthOfYear() < dateTime.getMonthOfYear() || firstDay.getYear() <
-                    dateTime.getYear())
+            if (firstDay.getMonthOfYear() < dateTime.getMonthOfYear()
+                    || firstDay.getYear() <dateTime.getYear())
                 day.setTextColor(Color.GRAY);
 
-            if (selectedDate != null) {
-                if (selectedDate.toLocalDate().equals(dateTime.toLocalDate())) {
-                    if (!selectedDate.toLocalDate().equals(dt.toLocalDate()))
+            if (selectedDateTime != null) {
+                if (selectedDateTime.toLocalDate().equals(dateTime.toLocalDate())) {
+                    if (!selectedDateTime.toLocalDate().equals(dt.toLocalDate()))
                         day.setBackground(holoCircle);
                 } else {
                     day.setBackground(null);

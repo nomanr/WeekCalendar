@@ -3,7 +3,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '23.0.2'
 
     defaultConfig {
         minSdkVersion 14
@@ -49,7 +49,7 @@ generateJavaDocsJar.dependsOn generateJavaDocs
 
 bintray {
     user = 'nomanrafique'
-    key = '96f03814bf5e49248c5138481f533a64da9df96a'
+    key = 'KEY'
     pkg {
         repo = 'maven'
         name = 'weekcalendar'

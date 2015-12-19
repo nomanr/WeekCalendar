@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
+import org.joda.time.DateTime;
+
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -157,6 +159,10 @@ public class WeekCalendar extends LinearLayout {
 
     public void reset() {
         BusProvider.getInstance().post(new Event.ResetEvent());
+    }
+
+    public void setSelectedDate(DateTime selectedDate){
+        BusProvider.getInstance().post(new Event.SetSelectedDateEvent(selectedDate));
     }
 /*
     public void hideDayNames(boolean hide) {

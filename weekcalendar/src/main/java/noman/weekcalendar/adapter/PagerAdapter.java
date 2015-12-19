@@ -50,11 +50,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 .WeekCalendar_daysTextSize, -1));
         bundle.putInt(WeekFragment.TEXT_COLOR_KEY, typedArray.getColor(R.styleable
                 .WeekCalendar_daysTextColor, Color.WHITE));
-        bundle.putInt(WeekFragment.TODAYS_DATE_COLOR_KEY,typedArray.getColor(R.styleable
-                .WeekCalendar_todaysDateBgColor, ContextCompat.getColor(context,R.color
+        bundle.putInt(WeekFragment.TODAYS_DATE_COLOR_KEY, typedArray.getColor(R.styleable
+                .WeekCalendar_todaysDateBgColor, ContextCompat.getColor(context, R.color
                 .colorAccent)));
-        bundle.putInt(WeekFragment.SELECTED_DATE_COLOR_KEY,typedArray.getColor(R.styleable
-                .WeekCalendar_selectedBgColor, ContextCompat.getColor(context,R.color
+        bundle.putInt(WeekFragment.SELECTED_DATE_COLOR_KEY, typedArray.getColor(R.styleable
+                .WeekCalendar_selectedBgColor, ContextCompat.getColor(context, R.color
                 .colorAccent)));
         fragment.setArguments(bundle);
         return fragment;
