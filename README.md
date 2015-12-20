@@ -33,7 +33,7 @@ Feel free to fork or issue pull requests on github. Issues can be reported on th
     <dependency>
       <groupId>noman.weekcalendar</groupId>
       <artifactId>weekcalendar</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.5</version>
     </dependency>
 
 <h3>Sample Usage</h3>
