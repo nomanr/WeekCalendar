@@ -29,9 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         Button todaysDate = (Button) findViewById(R.id.today);
         Button selectedDate = (Button) findViewById(R.id.selectedDateButton);
+        Button startDate = (Button) findViewById(R.id.startDate);
         todaysDate.setText(new DateTime().toLocalDate().toString() + " (Reset Button)");
         selectedDate.setText(new DateTime().plusDays(50).toLocalDate().toString()
                 + " (Set Selected Date Button)");
+        startDate.setText(new DateTime().plusDays(7).toLocalDate().toString()
+                + " (Set Start Date Button)");
+
         weekCalendar = (WeekCalendar) findViewById(R.id.weekCalendar);
         weekCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
@@ -80,5 +84,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onSelectedDateClick(View view){
         weekCalendar.setSelectedDate(new DateTime().plusDays(50));
+    }
+    public void onStartDateClick(View view){
+        weekCalendar.setStartDate(new DateTime().plusDays(7));
     }
 }

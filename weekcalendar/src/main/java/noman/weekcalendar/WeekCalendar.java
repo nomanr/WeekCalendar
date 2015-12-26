@@ -94,7 +94,7 @@ public class WeekCalendar extends LinearLayout {
         daysName.setNumColumns(7);
 
         daysName.setAdapter(new BaseAdapter() {
-            private String[] days = getWeekDayNames();//{"M", "T", "W", "T", "F", "S", "S"};
+            private String[] days = getWeekDayNames();
 
             public int getCount() {
                 return days.length;
@@ -164,12 +164,7 @@ public class WeekCalendar extends LinearLayout {
     public void setSelectedDate(DateTime selectedDate){
         BusProvider.getInstance().post(new Event.SetSelectedDateEvent(selectedDate));
     }
-/*
-    public void hideDayNames(boolean hide) {
-        if (hide ) {
-            removeView(daysName);
-        }
-        else
-            addView(daysName, 0);
-    }*/
+    public void setStartDate(DateTime startDate){
+        BusProvider.getInstance().post(new Event.SetStartDateEvent(startDate));
+    }
 }

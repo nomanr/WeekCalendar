@@ -28,7 +28,7 @@ dependencies {
 }
 
 group = 'noman.weekcalendar'
-version = '1.0.5'
+version = '1.0.6'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -55,10 +55,10 @@ bintray {
         name = 'weekcalendar'
 
         version {
-            name = '1.0.5'
+            name = '1.0.6'
             desc = 'WeekCalendar'
             released  = new Date()
-            vcsTag = '1.0.5'
+            vcsTag = '1.0.6'
         }
 
         licenses = ['Apache-2.0']

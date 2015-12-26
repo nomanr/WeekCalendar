@@ -52,7 +52,7 @@ public class WeekPager extends ViewPager {
     private void initPager(DateTime dateTime) {
         pos = NUM_OF_PAGES / 2;
         adapter = new PagerAdapter(getContext(), ((AppCompatActivity) getContext())
-                .getSupportFragmentManager(),dateTime, typedArray);
+                .getSupportFragmentManager(), dateTime, typedArray);
         setAdapter(adapter);
         addOnPageChangeListener(new ViewPager
                 .SimpleOnPageChangeListener() {
@@ -74,7 +74,7 @@ public class WeekPager extends ViewPager {
         if (typedArray != null)
             setBackgroundColor(typedArray.getColor(R.styleable.WeekCalendar_daysBackgroundColor,
                     ContextCompat.getColor(getContext(), R.color.colorPrimary)));
-        if(WeekFragment.selectedDateTime == null)
+        if (WeekFragment.selectedDateTime == null)
             WeekFragment.selectedDateTime = new DateTime();
     }
 
@@ -91,14 +91,22 @@ public class WeekPager extends ViewPager {
 
     @Subscribe
     public void reset(Event.ResetEvent event) {
-        WeekFragment.selectedDateTime = null;
-        initPager(new DateTime());
+        WeekFragment.selectedDateTime = new DateTime(WeekFragment.CalendarStartDate);
+        //WeekFragment.CalendarStartDate = new DateTime();
+        initPager(WeekFragment.CalendarStartDate);
     }
 
     @Subscribe
-    public void setSelectedDate(Event.SetSelectedDateEvent event){
+    public void setSelectedDate(Event.SetSelectedDateEvent event) {
         WeekFragment.selectedDateTime = event.getSelectedDate();
         initPager(event.getSelectedDate());
+    }
+
+    @Subscribe
+    public void setStartDate(Event.SetStartDateEvent event) {
+        WeekFragment.CalendarStartDate = event.getStartDate();
+        WeekFragment.selectedDateTime = event.getStartDate();
+        initPager(event.getStartDate());
     }
 
     private int idCheck() {

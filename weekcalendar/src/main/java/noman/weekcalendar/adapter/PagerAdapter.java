@@ -70,13 +70,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     }
 
     private DateTime getPerviousDate() {
-        DateTime dateTime = new DateTime(date);
-        return dateTime.plusDays(-7);
+        return date.plusDays(-7);
     }
 
     private DateTime getNextDate() {
-        DateTime dateTime = new DateTime(date);
-        return dateTime.plusDays(7);
+        return date.plusDays(7);
     }
 
     public void swipeBack() {
@@ -92,7 +90,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         currentPage = currentPage >= NUM_OF_PAGES - 1 ? NUM_OF_PAGES / 2 : currentPage;
     }
 
-    public DateTime getDate() {
+   /* public DateTime getDate() {
         return date;
     }
 
@@ -107,6 +105,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public void setDate(DateTime date) {
         this.date = date;
     }
-
+*/
 
 }

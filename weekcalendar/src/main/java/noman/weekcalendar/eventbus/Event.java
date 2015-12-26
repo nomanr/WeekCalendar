@@ -66,4 +66,18 @@ public class Event {
         private DateTime selectedDate;
     }
 
+    public static class SetStartDateEvent {
+
+
+        public SetStartDateEvent(DateTime startDate) {
+            this.startDate = startDate;
+        }
+
+        public DateTime getStartDate() {
+            return startDate;
+        }
+
+        private DateTime startDate;
+    }
+
 }

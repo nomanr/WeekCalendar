@@ -43,6 +43,7 @@ public class WeekFragment extends Fragment {
     private GridView gridView;
     private WeekAdapter weekAdapter;
     public static DateTime selectedDateTime = new DateTime();
+    public static DateTime CalendarStartDate = new DateTime();
     private DateTime startDate, endDate, midDate;
     private boolean isVisible;
 
@@ -149,6 +150,7 @@ public class WeekFragment extends Fragment {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(context);
                 convertView = inflater.inflate(R.layout.grid_item, null);
@@ -157,7 +159,7 @@ public class WeekFragment extends Fragment {
 
             TextView day = (TextView) convertView.findViewById(R.id.daytext);
             DateTime dateTime = getItem(position);
-            DateTime dt = new DateTime();
+            //DateTime dt = new DateTime();
 
             Drawable holoCircle = ContextCompat.getDrawable(context, R.drawable.holo_circle);
             Drawable solidCircle = ContextCompat.getDrawable(context, R.drawable.solid_circle);
@@ -166,23 +168,24 @@ public class WeekFragment extends Fragment {
                     .getInt(SELECTED_DATE_COLOR_KEY), PorterDuff.Mode.SRC_ATOP);
             solidCircle.setColorFilter(getArguments()
                     .getInt(TODAYS_DATE_COLOR_KEY), PorterDuff.Mode.SRC_ATOP);
-           // solidCircle.mutate().setAlpha(200);
+            // solidCircle.mutate().setAlpha(200);
             //holoCircle.mutate().setAlpha(200);
 
+
             if (firstDay.getMonthOfYear() < dateTime.getMonthOfYear()
-                    || firstDay.getYear() <dateTime.getYear())
+                    || firstDay.getYear() < dateTime.getYear())
                 day.setTextColor(Color.GRAY);
 
             if (selectedDateTime != null) {
                 if (selectedDateTime.toLocalDate().equals(dateTime.toLocalDate())) {
-                    if (!selectedDateTime.toLocalDate().equals(dt.toLocalDate()))
+                    if (!selectedDateTime.toLocalDate().equals(CalendarStartDate.toLocalDate()))
                         day.setBackground(holoCircle);
                 } else {
                     day.setBackground(null);
                 }
             }
 
-            if (dateTime.toLocalDate().equals(dt.toLocalDate())) {
+            if (dateTime.toLocalDate().equals(CalendarStartDate.toLocalDate())) {
                 day.setBackground(solidCircle);
                 day.setTextColor(Color.WHITE);
             }

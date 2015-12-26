@@ -9,20 +9,20 @@
     tools:context=".MainActivity">
 
     <noman.weekcalendar.WeekCalendar
-    android:id="@+id/weekCalendar"
-    android:layout_width="match_parent"
-    android:layout_height="65dp"
-    android:background="@color/colorPrimary"
-    app:numOfPages="150"
-    app:dayNameLength="threeLetters"
-    />
+        android:id="@+id/weekCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary"
+        app:dayNameLength="threeLetters"
+        app:numOfPages="150"
+        />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button"
@@ -51,16 +51,31 @@
         android:id="@+id/today"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onResetClick"
-        android:layout_below="@+id/linearLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:onClick="onResetClick"/>
 
-    <Button
-        android:onClick="onSelectedDateClick"
+    <LinearLayout
+        android:layout_below="@+id/today"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/selectedDateButton"
-        android:layout_below="@+id/today"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_weight="0.5"
+            android:id="@+id/selectedDateButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="onSelectedDateClick"/>
+
+        <Button
+            android:layout_weight="0.5"
+            android:id="@+id/startDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="onStartDateClick"/>
+    </LinearLayout>
 </RelativeLayout>
