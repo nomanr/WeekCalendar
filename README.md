@@ -25,7 +25,7 @@ Feel free to fork or issue pull requests on github. Issues can be reported on th
 <h5>Gradle</h5>
 
     dependencies {
-       compile 'noman.weekcalendar:weekcalendar:1.0.5'
+       compile 'noman.weekcalendar:weekcalendar:1.0.6'
     }
 
  <h5>Maven</h5>
@@ -33,7 +33,7 @@ Feel free to fork or issue pull requests on github. Issues can be reported on th
     <dependency>
       <groupId>noman.weekcalendar</groupId>
       <artifactId>weekcalendar</artifactId>
-      <version>1.0.5</version>
+      <version>1.0.6</version>
     </dependency>
 
 <h3>Sample Usage</h3>
@@ -104,7 +104,12 @@ There are a few xml attributes to customise the calendar. If you feel that any c
             }
 
         });
-  See the sample project for usage of methods like `reset()` , `moveToNext()` , `moveToPrevious()` and `setSelectedDate(DateTime)`. 
+  See the sample project for usage of methods like 
+  - `reset()` 
+  - `moveToNext()` 
+  - `moveToPrevious()`
+  - `setSelectedDate(DateTime)`
+  - `setStartDate(DateTime)`
 
 
 <h3>Libraries Used</h3>
