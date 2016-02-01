@@ -8,17 +8,24 @@ import com.squareup.otto.ThreadEnforcer;
 
 
 public final class BusProvider extends Bus {
-    private static final BusProvider BUS = new BusProvider();
+
     private static final Handler handler = new Handler(Looper.getMainLooper());
 
-    public static BusProvider getInstance() {
-        return BUS;
-    }
+    private static BusProvider mInstance = null;
 
     private BusProvider() {
         super(ThreadEnforcer.ANY);
     }
 
+    public static BusProvider getInstance(){
+        if(mInstance == null)
+        {
+            mInstance = new BusProvider();
+        }
+        return mInstance;
+    }
+
+    public static void disposeInstance() { mInstance = null; }
 
     @Override
     public void post(final Object event) {
@@ -33,6 +40,4 @@ public final class BusProvider extends Bus {
             });
         }
     }
-
-
 }

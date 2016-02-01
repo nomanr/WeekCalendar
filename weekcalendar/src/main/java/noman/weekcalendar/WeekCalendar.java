@@ -167,4 +167,11 @@ public class WeekCalendar extends LinearLayout {
     public void setStartDate(DateTime startDate){
         BusProvider.getInstance().post(new Event.SetStartDateEvent(startDate));
     }
+	
+	@Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        BusProvider.getInstance().unregister(this);
+        BusProvider.disposeInstance();
+    }
 }
