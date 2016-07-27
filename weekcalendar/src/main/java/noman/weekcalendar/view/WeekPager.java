@@ -52,8 +52,8 @@ public class WeekPager extends ViewPager {
 
     private void initPager(DateTime dateTime) {
         pos = NUM_OF_PAGES / 2;
-        adapter = new PagerAdapter(getContext(), ((AppCompatActivity) getContext())
-                .getSupportFragmentManager(), dateTime, typedArray);
+        adapter = new PagerAdapter(((AppCompatActivity) getContext())
+                .getSupportFragmentManager(), dateTime);
         setAdapter(adapter);
         addOnPageChangeListener(new ViewPager
                 .SimpleOnPageChangeListener() {

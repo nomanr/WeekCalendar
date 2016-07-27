@@ -2,22 +2,16 @@ package noman.weekcalendar.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
@@ -35,10 +29,6 @@ import noman.weekcalendar.eventbus.Event;
  */
 public class WeekFragment extends Fragment {
     private static final String TAG = "WeekFragment";
-    public static final String TEXT_SIZE_KEY = "text_size";
-    public static final String TEXT_COLOR_KEY = "text_color";
-    public static final String SELECTED_DATE_COLOR_KEY = "selected_color";
-    public static final String TODAYS_DATE_COLOR_KEY = "todays_color";
     public static String DATE_KEY = "date_key";
     private GridView gridView;
     private WeekAdapter weekAdapter;
@@ -157,44 +147,8 @@ public class WeekFragment extends Fragment {
                 firstDay = getItem(0);
             }
 
-            TextView day = (TextView) convertView.findViewById(R.id.daytext);
             DateTime dateTime = getItem(position);
-            //DateTime dt = new DateTime();
-
-            Drawable holoCircle = ContextCompat.getDrawable(context, R.drawable.holo_circle);
-            Drawable solidCircle = ContextCompat.getDrawable(context, R.drawable.solid_circle);
-
-            holoCircle.setColorFilter(getArguments()
-                    .getInt(SELECTED_DATE_COLOR_KEY), PorterDuff.Mode.SRC_ATOP);
-            solidCircle.setColorFilter(getArguments()
-                    .getInt(TODAYS_DATE_COLOR_KEY), PorterDuff.Mode.SRC_ATOP);
-            // solidCircle.mutate().setAlpha(200);
-            //holoCircle.mutate().setAlpha(200);
-
-
-            if (firstDay.getMonthOfYear() < dateTime.getMonthOfYear()
-                    || firstDay.getYear() < dateTime.getYear())
-                day.setTextColor(Color.GRAY);
-
-            if (selectedDateTime != null) {
-                if (selectedDateTime.toLocalDate().equals(dateTime.toLocalDate())) {
-                    if (!selectedDateTime.toLocalDate().equals(CalendarStartDate.toLocalDate()))
-                        day.setBackground(holoCircle);
-                } else {
-                    day.setBackground(null);
-                }
-            }
-
-            if (dateTime.toLocalDate().equals(CalendarStartDate.toLocalDate())) {
-                day.setBackground(solidCircle);
-                day.setTextColor(Color.WHITE);
-            }
-            day.setText(String.valueOf(dateTime.getDayOfMonth()));
-            day.setTextColor(getArguments().getInt(TEXT_COLOR_KEY));
-            float size = getArguments().getFloat(TEXT_SIZE_KEY);
-            if (size == -1)
-                size = day.getTextSize();
-            day.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+            BusProvider.getInstance().post(new Event.OnDayDecorateEvent(convertView, dateTime, firstDay));
             return convertView;
         }
     }

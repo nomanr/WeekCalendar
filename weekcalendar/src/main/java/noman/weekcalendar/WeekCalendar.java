@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import noman.weekcalendar.decorator.DayDecorator;
+import noman.weekcalendar.decorator.DefaultDayDecorator;
 import noman.weekcalendar.eventbus.BusProvider;
 import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.listener.OnDateClickListener;
@@ -37,6 +39,7 @@ public class WeekCalendar extends LinearLayout {
     private OnDateClickListener listener;
     private TypedArray typedArray;
     private GridView daysName;
+    private DayDecorator dayDecorator;
 
 
     public WeekCalendar(Context context) {
@@ -65,7 +68,26 @@ public class WeekCalendar extends LinearLayout {
         if (!typedArray.getBoolean(R.styleable.WeekCalendar_hideNames, false)) {
             daysName = getDaysNames();
             addView(daysName, 0);
+
+
+            int selectedDateColor = typedArray.getColor(R.styleable
+                    .WeekCalendar_selectedBgColor, ContextCompat.getColor(getContext(), R.color
+                    .colorAccent));
+            int todayDateColor = typedArray.getColor(R.styleable
+                    .WeekCalendar_todaysDateBgColor, ContextCompat.getColor(getContext(), R.color
+                    .colorAccent));
+            int daysTextColor = typedArray.getColor(R.styleable
+                    .WeekCalendar_daysTextColor, Color.WHITE);
+            float daysTextSize = typedArray.getDimension(R.styleable
+                    .WeekCalendar_daysTextSize, -1);
+
+            setDayDecorator(new DefaultDayDecorator(getContext(),
+                    selectedDateColor,
+                    todayDateColor,
+                    daysTextColor,
+                    daysTextSize));
         }
+
         WeekPager weekPager = new WeekPager(getContext(), attrs);
         addView(weekPager);
         BusProvider.getInstance().register(this);
@@ -83,8 +105,19 @@ public class WeekCalendar extends LinearLayout {
             listener.onDateClick(event.getDateTime());
     }
 
+    @Subscribe
+    public void onDayDecorate(Event.OnDayDecorateEvent event) {
+        if (dayDecorator != null) {
+            dayDecorator.decorate(event.getView(), event.getDateTime(), event.getFirstDay());
+        }
+    }
+
     public void setOnDateClickListener(OnDateClickListener listener) {
         this.listener = listener;
+    }
+
+    public void setDayDecorator(DayDecorator decorator) {
+        this.dayDecorator = decorator;
     }
 
 
@@ -167,11 +200,13 @@ public class WeekCalendar extends LinearLayout {
     public void setStartDate(DateTime startDate){
         BusProvider.getInstance().post(new Event.SetStartDateEvent(startDate));
     }
-	
-	@Override
+    
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         BusProvider.getInstance().unregister(this);
         BusProvider.disposeInstance();
     }
+
+
 }

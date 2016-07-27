@@ -1,17 +1,12 @@
 package noman.weekcalendar.adapter;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
 
 import org.joda.time.DateTime;
 
-import noman.weekcalendar.R;
 import noman.weekcalendar.fragment.WeekFragment;
 
 import static noman.weekcalendar.fragment.WeekFragment.DATE_KEY;
@@ -24,14 +19,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     private static final String TAG = "PagerAdapter";
     private int currentPage = NUM_OF_PAGES / 2;
     private DateTime date;
-    private TypedArray typedArray;
-    private Context context;
 
-    public PagerAdapter(Context context, FragmentManager fm, DateTime date, TypedArray typedArray) {
+    public PagerAdapter(FragmentManager fm, DateTime date) {
         super(fm);
         this.date = date;
-        this.typedArray = typedArray;
-        this.context = context;
     }
 
     @Override
@@ -46,16 +37,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         else
             bundle.putSerializable(DATE_KEY, getTodaysDate());
 
-        bundle.putFloat(WeekFragment.TEXT_SIZE_KEY, typedArray.getDimension(R.styleable
-                .WeekCalendar_daysTextSize, -1));
-        bundle.putInt(WeekFragment.TEXT_COLOR_KEY, typedArray.getColor(R.styleable
-                .WeekCalendar_daysTextColor, Color.WHITE));
-        bundle.putInt(WeekFragment.TODAYS_DATE_COLOR_KEY, typedArray.getColor(R.styleable
-                .WeekCalendar_todaysDateBgColor, ContextCompat.getColor(context, R.color
-                .colorAccent)));
-        bundle.putInt(WeekFragment.SELECTED_DATE_COLOR_KEY, typedArray.getColor(R.styleable
-                .WeekCalendar_selectedBgColor, ContextCompat.getColor(context, R.color
-                .colorAccent)));
         fragment.setArguments(bundle);
         return fragment;
     }
