@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
@@ -148,7 +149,12 @@ public class WeekFragment extends Fragment {
             }
 
             DateTime dateTime = getItem(position);
-            BusProvider.getInstance().post(new Event.OnDayDecorateEvent(convertView, dateTime, firstDay));
+
+            TextView dayTextView = (TextView) convertView.findViewById(R.id.daytext);
+            dayTextView.setText(String.valueOf(dateTime.getDayOfMonth()));
+
+            BusProvider.getInstance().post(new Event.OnDayDecorateEvent(convertView, dayTextView,
+                    dateTime, firstDay));
             return convertView;
         }
     }

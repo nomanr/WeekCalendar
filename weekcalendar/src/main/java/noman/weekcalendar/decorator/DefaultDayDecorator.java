@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.joda.time.DateTime;
 
+import noman.weekcalendar.R;
 import noman.weekcalendar.fragment.WeekFragment;
 
 /**
@@ -42,12 +43,12 @@ public class DefaultDayDecorator implements DayDecorator {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    public void decorate(View view, DateTime dateTime, DateTime firstDayOfTheWeek) {
-        TextView day = (TextView) view.findViewById(noman.weekcalendar.R.id.daytext);
+    public void decorate(View view, TextView dayTextView,
+                         DateTime dateTime, DateTime firstDayOfTheWeek) {
         //DateTime dt = new DateTime();
 
-        Drawable holoCircle = ContextCompat.getDrawable(context, noman.weekcalendar.R.drawable.holo_circle);
-        Drawable solidCircle = ContextCompat.getDrawable(context, noman.weekcalendar.R.drawable.solid_circle);
+        Drawable holoCircle = ContextCompat.getDrawable(context, R.drawable.holo_circle);
+        Drawable solidCircle = ContextCompat.getDrawable(context, R.drawable.solid_circle);
 
         holoCircle.setColorFilter(selectedDateColor, PorterDuff.Mode.SRC_ATOP);
         solidCircle.setColorFilter(todayDateColor, PorterDuff.Mode.SRC_ATOP);
@@ -57,7 +58,7 @@ public class DefaultDayDecorator implements DayDecorator {
 
         if (firstDayOfTheWeek.getMonthOfYear() < dateTime.getMonthOfYear()
                 || firstDayOfTheWeek.getYear() < dateTime.getYear())
-            day.setTextColor(Color.GRAY);
+            dayTextView.setTextColor(Color.GRAY);
 
         DateTime selectedDateTime = WeekFragment.selectedDateTime;
         DateTime calendarStartDate = WeekFragment.CalendarStartDate;
@@ -65,21 +66,20 @@ public class DefaultDayDecorator implements DayDecorator {
         if (selectedDateTime != null) {
             if (selectedDateTime.toLocalDate().equals(dateTime.toLocalDate())) {
                 if (!selectedDateTime.toLocalDate().equals(calendarStartDate.toLocalDate()))
-                    day.setBackground(holoCircle);
+                    dayTextView.setBackground(holoCircle);
             } else {
-                day.setBackground(null);
+                dayTextView.setBackground(null);
             }
         }
 
         if (dateTime.toLocalDate().equals(calendarStartDate.toLocalDate())) {
-            day.setBackground(solidCircle);
-            day.setTextColor(Color.WHITE);
+            dayTextView.setBackground(solidCircle);
+            dayTextView.setTextColor(Color.WHITE);
         }
-        day.setText(String.valueOf(dateTime.getDayOfMonth()));
-        day.setTextColor(textColor);
+        dayTextView.setTextColor(textColor);
         float size = textSize;
         if (size == -1)
-            size = day.getTextSize();
-        day.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
+            size = dayTextView.getTextSize();
+        dayTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
     }
 }

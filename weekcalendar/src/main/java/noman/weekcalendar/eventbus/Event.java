@@ -1,6 +1,7 @@
 package noman.weekcalendar.eventbus;
 
 import android.view.View;
+import android.widget.TextView;
 
 import org.joda.time.DateTime;
 
@@ -85,17 +86,24 @@ public class Event {
     public static class OnDayDecorateEvent {
 
         private final View view;
+        private final TextView dayTextView;
         private final DateTime dateTime;
         private DateTime firstDay;
 
-        public OnDayDecorateEvent(View view, DateTime dateTime, DateTime firstDayOfTheWeek) {
+        public OnDayDecorateEvent(View view, TextView dayTextView, DateTime dateTime,
+                                  DateTime firstDayOfTheWeek) {
             this.view = view;
+            this.dayTextView = dayTextView;
             this.dateTime = dateTime;
             this.firstDay = firstDayOfTheWeek;
         }
 
         public View getView() {
             return view;
+        }
+
+        public TextView getDayTextView() {
+            return dayTextView;
         }
 
         public DateTime getDateTime() {
