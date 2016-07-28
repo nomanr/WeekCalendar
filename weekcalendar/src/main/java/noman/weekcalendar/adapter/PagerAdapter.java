@@ -6,7 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 
+import noman.weekcalendar.eventbus.BusProvider;
+import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.fragment.WeekFragment;
 
 import static noman.weekcalendar.fragment.WeekFragment.DATE_KEY;
@@ -62,6 +65,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         date = date.plusDays(-7);
         currentPage--;
         currentPage = currentPage <= 1 ? NUM_OF_PAGES / 2 : currentPage;
+        BusProvider.getInstance().post(
+                new Event.OnWeekChange(date.withDayOfWeek(DateTimeConstants.MONDAY), false));
     }
 
 
@@ -69,6 +74,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         date = date.plusDays(7);
         currentPage++;
         currentPage = currentPage >= NUM_OF_PAGES - 1 ? NUM_OF_PAGES / 2 : currentPage;
+        BusProvider.getInstance().post(
+                new Event.OnWeekChange(date.withDayOfWeek(DateTimeConstants.MONDAY), true));
     }
 
    /* public DateTime getDate() {

@@ -29,6 +29,7 @@ import noman.weekcalendar.decorator.DefaultDayDecorator;
 import noman.weekcalendar.eventbus.BusProvider;
 import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.listener.OnDateClickListener;
+import noman.weekcalendar.listener.OnWeekChangeListener;
 import noman.weekcalendar.view.WeekPager;
 
 /**
@@ -40,6 +41,7 @@ public class WeekCalendar extends LinearLayout {
     private TypedArray typedArray;
     private GridView daysName;
     private DayDecorator dayDecorator;
+    private OnWeekChangeListener onWeekChangeListener;
 
 
     public WeekCalendar(Context context) {
@@ -110,6 +112,13 @@ public class WeekCalendar extends LinearLayout {
         }
     }
 
+    @Subscribe
+    public void onWeekChange(Event.OnWeekChange event) {
+        if (onWeekChangeListener != null) {
+            onWeekChangeListener.onWeekChange(event.getFirstDayOfTheWeek(), event.isForward());
+        }
+    }
+
     public void setOnDateClickListener(OnDateClickListener listener) {
         this.listener = listener;
     }
@@ -118,6 +127,9 @@ public class WeekCalendar extends LinearLayout {
         this.dayDecorator = decorator;
     }
 
+    public void setOnWeekChangeListener(OnWeekChangeListener onWeekChangeListener) {
+        this.onWeekChangeListener = onWeekChangeListener;
+    }
 
     private GridView getDaysNames() {
         daysName = new GridView(getContext());
@@ -205,6 +217,4 @@ public class WeekCalendar extends LinearLayout {
         BusProvider.getInstance().unregister(this);
         BusProvider.disposeInstance();
     }
-
-
 }

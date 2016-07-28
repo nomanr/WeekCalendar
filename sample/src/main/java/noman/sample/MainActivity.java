@@ -15,6 +15,7 @@ import org.joda.time.DateTime;
 
 import noman.weekcalendar.WeekCalendar;
 import noman.weekcalendar.listener.OnDateClickListener;
+import noman.weekcalendar.listener.OnWeekChangeListener;
 
 public class MainActivity extends AppCompatActivity {
     private WeekCalendar weekCalendar;
@@ -44,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
                         .LENGTH_SHORT).show();
             }
 
+        });
+        weekCalendar.setOnWeekChangeListener(new OnWeekChangeListener() {
+            @Override
+            public void onWeekChange(DateTime firstDayOfTheWeek, boolean forward) {
+                Toast.makeText(MainActivity.this, "Week changed: " + firstDayOfTheWeek +
+                        " Forward: " + forward, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

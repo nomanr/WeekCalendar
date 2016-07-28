@@ -82,28 +82,47 @@ public class Event {
         private DateTime startDate;
     }
 
-	public static class OnDayDecorateEvent {
+    public static class OnDayDecorateEvent {
 
-		private final View view;
-		private final DateTime dateTime;
-		private DateTime firstDay;
+        private final View view;
+        private final DateTime dateTime;
+        private DateTime firstDay;
 
-		public OnDayDecorateEvent(View view, DateTime dateTime, DateTime firstDayOfTheWeek) {
-			this.view = view;
-			this.dateTime = dateTime;
-			this.firstDay = firstDayOfTheWeek;
-		}
+        public OnDayDecorateEvent(View view, DateTime dateTime, DateTime firstDayOfTheWeek) {
+            this.view = view;
+            this.dateTime = dateTime;
+            this.firstDay = firstDayOfTheWeek;
+        }
 
-		public View getView() {
-			return view;
-		}
+        public View getView() {
+            return view;
+        }
 
-		public DateTime getDateTime() {
-			return dateTime;
-		}
+        public DateTime getDateTime() {
+            return dateTime;
+        }
 
-		public DateTime getFirstDay() {
-			return firstDay;
-		}
-	}
+        public DateTime getFirstDay() {
+            return firstDay;
+        }
+    }
+
+    public static class OnWeekChange {
+
+        private final DateTime firstDayOfTheWeek;
+        private final boolean forward;
+
+        public OnWeekChange(DateTime firstDayOfTheWeek, boolean isForward) {
+            this.firstDayOfTheWeek = firstDayOfTheWeek;
+            this.forward = isForward;
+        }
+
+        public DateTime getFirstDayOfTheWeek() {
+            return firstDayOfTheWeek;
+        }
+
+        public boolean isForward() {
+            return forward;
+        }
+    }
 }
