@@ -62,14 +62,6 @@ public class WeekCalendar extends LinearLayout {
     private void init(AttributeSet attrs) {
         if (attrs != null) {
             typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.WeekCalendar);
-        }
-        setOrientation(VERTICAL);
-
-        if (!typedArray.getBoolean(R.styleable.WeekCalendar_hideNames, false)) {
-            daysName = getDaysNames();
-            addView(daysName, 0);
-
-
             int selectedDateColor = typedArray.getColor(R.styleable
                     .WeekCalendar_selectedBgColor, ContextCompat.getColor(getContext(), R.color
                     .colorAccent));
@@ -86,6 +78,12 @@ public class WeekCalendar extends LinearLayout {
                     todayDateColor,
                     daysTextColor,
                     daysTextSize));
+        }
+        setOrientation(VERTICAL);
+
+        if (!typedArray.getBoolean(R.styleable.WeekCalendar_hideNames, false)) {
+            daysName = getDaysNames();
+            addView(daysName, 0);
         }
 
         WeekPager weekPager = new WeekPager(getContext(), attrs);
