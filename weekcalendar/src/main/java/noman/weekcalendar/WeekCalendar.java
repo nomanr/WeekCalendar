@@ -109,7 +109,7 @@ public class WeekCalendar extends LinearLayout {
     public void onDayDecorate(Event.OnDayDecorateEvent event) {
         if (dayDecorator != null) {
             dayDecorator.decorate(event.getView(), event.getDayTextView(), event.getDateTime(),
-                    event.getFirstDay());
+                    event.getFirstDay(), event.getSelectedDateTime());
         }
     }
 

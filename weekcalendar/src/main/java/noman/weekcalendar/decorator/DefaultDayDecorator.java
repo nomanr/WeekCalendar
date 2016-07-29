@@ -44,7 +44,7 @@ public class DefaultDayDecorator implements DayDecorator {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void decorate(View view, TextView dayTextView,
-                         DateTime dateTime, DateTime firstDayOfTheWeek) {
+                         DateTime dateTime, DateTime firstDayOfTheWeek, DateTime selectedDateTime) {
         //DateTime dt = new DateTime();
 
         Drawable holoCircle = ContextCompat.getDrawable(context, R.drawable.holo_circle);
@@ -60,7 +60,6 @@ public class DefaultDayDecorator implements DayDecorator {
                 || firstDayOfTheWeek.getYear() < dateTime.getYear())
             dayTextView.setTextColor(Color.GRAY);
 
-        DateTime selectedDateTime = WeekFragment.selectedDateTime;
         DateTime calendarStartDate = WeekFragment.CalendarStartDate;
 
         if (selectedDateTime != null) {

@@ -89,13 +89,15 @@ public class Event {
         private final TextView dayTextView;
         private final DateTime dateTime;
         private DateTime firstDay;
+        private DateTime selectedDateTime;
 
         public OnDayDecorateEvent(View view, TextView dayTextView, DateTime dateTime,
-                                  DateTime firstDayOfTheWeek) {
+                                  DateTime firstDayOfTheWeek, DateTime selectedDateTime) {
             this.view = view;
             this.dayTextView = dayTextView;
             this.dateTime = dateTime;
             this.firstDay = firstDayOfTheWeek;
+            this.selectedDateTime = selectedDateTime;
         }
 
         public View getView() {
@@ -112,6 +114,10 @@ public class Event {
 
         public DateTime getFirstDay() {
             return firstDay;
+        }
+
+        public DateTime getSelectedDateTime() {
+            return selectedDateTime;
         }
     }
 

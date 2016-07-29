@@ -159,7 +159,7 @@ public class WeekFragment extends Fragment {
             dayTextView.setText(String.valueOf(dateTime.getDayOfMonth()));
 
             BusProvider.getInstance().post(new Event.OnDayDecorateEvent(convertView, dayTextView,
-                    dateTime, firstDay));
+                    dateTime, firstDay, WeekFragment.selectedDateTime));
             return convertView;
         }
     }
