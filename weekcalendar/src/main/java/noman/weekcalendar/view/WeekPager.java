@@ -44,10 +44,10 @@ public class WeekPager extends ViewPager {
             NUM_OF_PAGES = typedArray.getInt(R.styleable.WeekCalendar_numOfPages, 100);
         }
         setId(idCheck());
-		if (!isInEditMode()) {
-			initPager(new DateTime());
-			BusProvider.getInstance().register(this);
-		}
+        if (!isInEditMode()) {
+            initPager(new DateTime());
+            BusProvider.getInstance().register(this);
+        }
     }
 
     private void initPager(DateTime dateTime) {

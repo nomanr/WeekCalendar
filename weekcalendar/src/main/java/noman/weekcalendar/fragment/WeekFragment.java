@@ -95,6 +95,11 @@ public class WeekFragment extends Fragment {
         gridView.invalidateViews();
     }
 
+    @Subscribe
+    public void updateUi(Event.OnUpdateUi event) {
+        weekAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onResume() {
         BusProvider.getInstance().register(this);
@@ -113,7 +118,7 @@ public class WeekFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
-    private class WeekAdapter extends BaseAdapter {
+    public class WeekAdapter extends BaseAdapter {
         private ArrayList<DateTime> days;
         private Context context;
         private DateTime firstDay;
@@ -148,7 +153,7 @@ public class WeekFragment extends Fragment {
                 firstDay = getItem(0);
             }
 
-            DateTime dateTime = getItem(position);
+            DateTime dateTime = getItem(position).withMillisOfDay(0);
 
             TextView dayTextView = (TextView) convertView.findViewById(R.id.daytext);
             dayTextView.setText(String.valueOf(dateTime.getDayOfMonth()));

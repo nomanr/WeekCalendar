@@ -133,4 +133,7 @@ public class Event {
             return forward;
         }
     }
+
+    public static class OnUpdateUi {
+    }
 }

@@ -108,7 +108,8 @@ public class WeekCalendar extends LinearLayout {
     @Subscribe
     public void onDayDecorate(Event.OnDayDecorateEvent event) {
         if (dayDecorator != null) {
-            dayDecorator.decorate(event.getView(), event.getDayTextView(), event.getDateTime(), event.getFirstDay());
+            dayDecorator.decorate(event.getView(), event.getDayTextView(), event.getDateTime(),
+                    event.getFirstDay());
         }
     }
 
@@ -190,6 +191,14 @@ public class WeekCalendar extends LinearLayout {
                     .WeekCalendar_weekBackgroundColor, ContextCompat.getColor(getContext(), R
                     .color.colorPrimary)));
         return daysName;
+    }
+
+    /**
+     * Renders the days again. If you depend on deferred data which need to update the calendar
+     * after it's resolved to decorate the days.
+     */
+    public void updateUi() {
+        BusProvider.getInstance().post(new Event.OnUpdateUi());
     }
 
     public void moveToPrevious() {
