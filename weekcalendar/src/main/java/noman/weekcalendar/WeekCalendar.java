@@ -24,9 +24,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import noman.weekcalendar.decorator.DayDecorator;
+import noman.weekcalendar.decorator.DefaultDayDecorator;
 import noman.weekcalendar.eventbus.BusProvider;
 import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.listener.OnDateClickListener;
+import noman.weekcalendar.listener.OnWeekChangeListener;
 import noman.weekcalendar.view.WeekPager;
 
 /**
@@ -37,6 +40,8 @@ public class WeekCalendar extends LinearLayout {
     private OnDateClickListener listener;
     private TypedArray typedArray;
     private GridView daysName;
+    private DayDecorator dayDecorator;
+    private OnWeekChangeListener onWeekChangeListener;
 
 
     public WeekCalendar(Context context) {
@@ -59,6 +64,22 @@ public class WeekCalendar extends LinearLayout {
     private void init(AttributeSet attrs) {
         if (attrs != null) {
             typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.WeekCalendar);
+            int selectedDateColor = typedArray.getColor(R.styleable
+                    .WeekCalendar_selectedBgColor, ContextCompat.getColor(getContext(), R.color
+                    .colorAccent));
+            int todayDateColor = typedArray.getColor(R.styleable
+                    .WeekCalendar_todaysDateBgColor, ContextCompat.getColor(getContext(), R.color
+                    .colorAccent));
+            int daysTextColor = typedArray.getColor(R.styleable
+                    .WeekCalendar_daysTextColor, Color.WHITE);
+            float daysTextSize = typedArray.getDimension(R.styleable
+                    .WeekCalendar_daysTextSize, -1);
+
+            setDayDecorator(new DefaultDayDecorator(getContext(),
+                    selectedDateColor,
+                    todayDateColor,
+                    daysTextColor,
+                    daysTextSize));
         }
         setOrientation(VERTICAL);
 
@@ -66,6 +87,7 @@ public class WeekCalendar extends LinearLayout {
             daysName = getDaysNames();
             addView(daysName, 0);
         }
+
         WeekPager weekPager = new WeekPager(getContext(), attrs);
         addView(weekPager);
         BusProvider.getInstance().register(this);
@@ -83,10 +105,32 @@ public class WeekCalendar extends LinearLayout {
             listener.onDateClick(event.getDateTime());
     }
 
+    @Subscribe
+    public void onDayDecorate(Event.OnDayDecorateEvent event) {
+        if (dayDecorator != null) {
+            dayDecorator.decorate(event.getView(), event.getDayTextView(), event.getDateTime(),
+                    event.getFirstDay(), event.getSelectedDateTime());
+        }
+    }
+
+    @Subscribe
+    public void onWeekChange(Event.OnWeekChange event) {
+        if (onWeekChangeListener != null) {
+            onWeekChangeListener.onWeekChange(event.getFirstDayOfTheWeek(), event.isForward());
+        }
+    }
+
     public void setOnDateClickListener(OnDateClickListener listener) {
         this.listener = listener;
     }
 
+    public void setDayDecorator(DayDecorator decorator) {
+        this.dayDecorator = decorator;
+    }
+
+    public void setOnWeekChangeListener(OnWeekChangeListener onWeekChangeListener) {
+        this.onWeekChangeListener = onWeekChangeListener;
+    }
 
     private GridView getDaysNames() {
         daysName = new GridView(getContext());
@@ -149,6 +193,14 @@ public class WeekCalendar extends LinearLayout {
         return daysName;
     }
 
+    /**
+     * Renders the days again. If you depend on deferred data which need to update the calendar
+     * after it's resolved to decorate the days.
+     */
+    public void updateUi() {
+        BusProvider.getInstance().post(new Event.OnUpdateUi());
+    }
+
     public void moveToPrevious() {
         BusProvider.getInstance().post(new Event.UpdateSelectedDateEvent(-1));
     }
@@ -167,8 +219,8 @@ public class WeekCalendar extends LinearLayout {
     public void setStartDate(DateTime startDate){
         BusProvider.getInstance().post(new Event.SetStartDateEvent(startDate));
     }
-	
-	@Override
+    
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         BusProvider.getInstance().unregister(this);
