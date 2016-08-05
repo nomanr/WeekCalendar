@@ -61,6 +61,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         return date.plusDays(7);
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        //Force rerendering so the week is drawn again when you return to the view after
+        // back button press.
+        return POSITION_NONE;
+    }
+
     public void swipeBack() {
         date = date.plusDays(-7);
         currentPage--;

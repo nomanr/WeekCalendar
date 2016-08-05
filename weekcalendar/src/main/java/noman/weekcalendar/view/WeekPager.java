@@ -2,6 +2,7 @@ package noman.weekcalendar.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,21 @@ public class WeekPager extends ViewPager {
     public WeekPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         initialize(attrs);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
+        post(new Runnable() {
+            @Override
+            public void run() {
+                //Force rerendering so the week is drawn again when you return to the view after
+                // back button press.
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void initialize(AttributeSet attrs) {

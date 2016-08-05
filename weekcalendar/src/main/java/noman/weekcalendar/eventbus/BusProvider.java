@@ -6,12 +6,16 @@ import android.os.Looper;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public final class BusProvider extends Bus {
 
     private static final Handler handler = new Handler(Looper.getMainLooper());
 
     private static BusProvider mInstance = null;
+    private List objects = new ArrayList();
 
     private BusProvider() {
         super(ThreadEnforcer.ANY);
@@ -39,5 +43,23 @@ public final class BusProvider extends Bus {
                 }
             });
         }
+    }
+
+    @Override
+    public void register(Object object) {
+        if (objects.contains(object)) {
+            return;
+        }
+        objects.add(object);
+        super.register(object);
+    }
+
+    @Override
+    public void unregister(Object object) {
+        if (!objects.contains(object)) {
+            return;
+        }
+        objects.remove(object);
+        super.unregister(object);
     }
 }

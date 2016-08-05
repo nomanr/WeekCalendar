@@ -101,15 +101,15 @@ public class WeekFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
+    public void onStart() {
         BusProvider.getInstance().register(this);
-        super.onResume();
+        super.onStart();
     }
 
     @Override
-    public void onPause() {
+    public void onStop() {
         BusProvider.getInstance().unregister(this);
-        super.onPause();
+        super.onStop();
     }
 
     @Override
