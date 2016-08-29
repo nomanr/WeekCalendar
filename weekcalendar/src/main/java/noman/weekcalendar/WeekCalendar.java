@@ -90,7 +90,6 @@ public class WeekCalendar extends LinearLayout {
 
         WeekPager weekPager = new WeekPager(getContext(), attrs);
         addView(weekPager);
-        BusProvider.getInstance().register(this);
 
     }
 
@@ -218,6 +217,12 @@ public class WeekCalendar extends LinearLayout {
     }
     public void setStartDate(DateTime startDate){
         BusProvider.getInstance().post(new Event.SetStartDateEvent(startDate));
+    }
+    
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        BusProvider.getInstance().register(this);
     }
     
     @Override
