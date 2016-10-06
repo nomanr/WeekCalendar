@@ -1,4 +1,7 @@
 
+**NOTE** I AM NOT WORKING ON THIS LIBRARY ANYMORE. I WOULD RECOMMEND TO USE CALENDAR AS A CUSTOM VIEW INSTEAD OF ADDING IT AS GRADLE DEPENDENCY. FORKS + PRS ARE WELCOME. 
+
+
 <br/><br/><img src="https://raw.githubusercontent.com/nomanr/WeekCalendar/master/images/cover.png">
 <p><b>WeekCalendar</b> is a library which provides a weekly calendar. </p>
 The sample project includes the usage of the library.
