@@ -43,7 +43,6 @@ public class WeekCalendar extends LinearLayout {
     private GridView daysName;
     private DayDecorator dayDecorator;
     private OnWeekChangeListener onWeekChangeListener;
-    private TextView monthYearName;
 
 
     public WeekCalendar(Context context) {
