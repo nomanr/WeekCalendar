@@ -1,5 +1,6 @@
 package noman.weekcalendar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -42,6 +43,7 @@ public class WeekCalendar extends LinearLayout {
     private GridView daysName;
     private DayDecorator dayDecorator;
     private OnWeekChangeListener onWeekChangeListener;
+    private TextView monthYearName;
 
 
     public WeekCalendar(Context context) {
@@ -74,10 +76,12 @@ public class WeekCalendar extends LinearLayout {
                     .WeekCalendar_daysTextColor, Color.WHITE);
             float daysTextSize = typedArray.getDimension(R.styleable
                     .WeekCalendar_daysTextSize, -1);
-
+            int todayDateTextColor = typedArray.getColor(R.styleable
+                    .WeekCalendar_todaysDateTextColor, ContextCompat.getColor(getContext(), android.R.color.white));
             setDayDecorator(new DefaultDayDecorator(getContext(),
                     selectedDateColor,
                     todayDateColor,
+                    todayDateTextColor,
                     daysTextColor,
                     daysTextSize));
         }
@@ -153,6 +157,7 @@ public class WeekCalendar extends LinearLayout {
                 return 0;
             }
 
+            @SuppressLint("InflateParams")
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
@@ -212,19 +217,20 @@ public class WeekCalendar extends LinearLayout {
         BusProvider.getInstance().post(new Event.ResetEvent());
     }
 
-    public void setSelectedDate(DateTime selectedDate){
+    public void setSelectedDate(DateTime selectedDate) {
         BusProvider.getInstance().post(new Event.SetSelectedDateEvent(selectedDate));
     }
-    public void setStartDate(DateTime startDate){
+
+    public void setStartDate(DateTime startDate) {
         BusProvider.getInstance().post(new Event.SetStartDateEvent(startDate));
     }
-    
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         BusProvider.getInstance().register(this);
     }
-    
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();

@@ -1,5 +1,6 @@
 package noman.weekcalendar.fragment;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -29,13 +30,13 @@ import noman.weekcalendar.eventbus.Event;
  * Created by nor on 12/4/2015.
  */
 public class WeekFragment extends Fragment {
-    private static final String TAG = "WeekFragment";
     public static String DATE_KEY = "date_key";
     private GridView gridView;
     private WeekAdapter weekAdapter;
     public static DateTime selectedDateTime = new DateTime();
     public static DateTime CalendarStartDate = new DateTime();
-    private DateTime startDate, endDate, midDate;
+    private DateTime startDate;
+    private DateTime endDate;
     private boolean isVisible;
 
     @Nullable
@@ -49,12 +50,14 @@ public class WeekFragment extends Fragment {
 
     private void init() {
         ArrayList<DateTime> days = new ArrayList<>();
-        midDate = (DateTime) getArguments().getSerializable(DATE_KEY);
-        midDate = midDate.withDayOfWeek(DateTimeConstants.THURSDAY);
+        DateTime midDate = (DateTime) getArguments().getSerializable(DATE_KEY);
+        if (midDate != null) {
+            midDate = midDate.withDayOfWeek(DateTimeConstants.THURSDAY);
+        }
         //Getting all seven days
 
         for (int i = -3; i <= 3; i++)
-            days.add(midDate.plusDays(i));
+            days.add(midDate != null ? midDate.plusDays(i) : null);
 
         startDate = days.get(0);
         endDate = days.get(days.size() - 1);
@@ -123,7 +126,7 @@ public class WeekFragment extends Fragment {
         private Context context;
         private DateTime firstDay;
 
-        public WeekAdapter(Context context, ArrayList<DateTime> days) {
+        WeekAdapter(Context context, ArrayList<DateTime> days) {
             this.days = days;
             this.context = context;
         }
@@ -143,6 +146,7 @@ public class WeekFragment extends Fragment {
             return 0;
         }
 
+        @SuppressLint("InflateParams")
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
