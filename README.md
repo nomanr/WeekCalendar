@@ -64,6 +64,7 @@ There are a few xml attributes to customise the calendar. If you feel that any c
  - `weekBackgroundColor`
  - `selectedBgColor`
  - `todaysDateBgColor`
+ - `todaysDateTextColor`
  - `dayNameLength`
  - `hideNames`
 
@@ -78,7 +79,8 @@ There are a few xml attributes to customise the calendar. If you feel that any c
        android:background="@color/colorPrimary"
        app:numOfPages="150"
        app:dayNameLength="threeLetters"
-       app:todaysDateBgColor="#ffffff"/>
+       app:todaysDateBgColor="#ffffff"
+       app:todaysDateTextColor="#000000"/>
 
 <h5>Explained</h5>
 
@@ -91,6 +93,7 @@ There are a few xml attributes to customise the calendar. If you feel that any c
  - `weekBackgroundColor`  same as `daysBackgroundColor`
  - `selectedBgColor` By default, its color is set to be `colorAccent`, if you've that attribute in attribute in `color.xml`, then the backgroud color will be that one. Otherwise the pink color shown in the demo.
  - `todaysDateBgColor` todays date background color, same as `selectedBgColor`.
+ - `todaysDateTextColor` todays date text color,  by default the text color is set to be white.
  - `dayNameLength` week day name length, `singleLetter` means (S,M,T..) and `threeLetters` means (Sun, Mun, Tue..)
  - `hideNames` , set this attribute to hide name of week days.
 
