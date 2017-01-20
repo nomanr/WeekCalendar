@@ -19,10 +19,9 @@ import noman.weekcalendar.eventbus.Event;
 import noman.weekcalendar.fragment.WeekFragment;
 
 /**
- * Created by nor on 12/5/2015.
+ * Created by gokhan on 7/28/16.
  */
 public class WeekPager extends ViewPager {
-    private static final String TAG = "WeekCalendar";
     private PagerAdapter adapter;
     private int pos;
     private boolean check;
@@ -127,9 +126,10 @@ public class WeekPager extends ViewPager {
     }
 
     private int idCheck() {
-
         int id = 0;
-        while (findViewById(++id) != null) ;
+        while (true) {
+            if (findViewById(++id) == null) break;
+        }
         return id;
     }
 }

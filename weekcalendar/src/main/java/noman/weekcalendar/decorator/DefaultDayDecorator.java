@@ -1,5 +1,6 @@
 package noman.weekcalendar.decorator;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
@@ -26,17 +27,20 @@ public class DefaultDayDecorator implements DayDecorator {
     private Context context;
     private final int selectedDateColor;
     private final int todayDateColor;
+    private int todayDateTextColor;
     private int textColor;
     private float textSize;
 
     public DefaultDayDecorator(Context context,
                                @ColorInt int selectedDateColor,
                                @ColorInt int todayDateColor,
+                               @ColorInt int todayDateTextColor,
                                @ColorInt int textColor,
-                               @DimenRes float textSize) {
+                               float textSize) {
         this.context = context;
         this.selectedDateColor = selectedDateColor;
         this.todayDateColor = todayDateColor;
+        this.todayDateTextColor = todayDateTextColor;
         this.textColor = textColor;
         this.textSize = textSize;
     }
@@ -73,9 +77,10 @@ public class DefaultDayDecorator implements DayDecorator {
 
         if (dateTime.toLocalDate().equals(calendarStartDate.toLocalDate())) {
             dayTextView.setBackground(solidCircle);
-            dayTextView.setTextColor(Color.WHITE);
+            dayTextView.setTextColor(this.todayDateTextColor);
+        } else {
+            dayTextView.setTextColor(textColor);
         }
-        dayTextView.setTextColor(textColor);
         float size = textSize;
         if (size == -1)
             size = dayTextView.getTextSize();
