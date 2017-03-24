@@ -16,7 +16,7 @@ Feel free to fork or issue pull requests on github. Issues can be reported on th
 
 <h3>Demo</h3>
 
-<img src="https://raw.githubusercontent.com/nomanr/WeekCalendar/master/images/gif.gif"width="400">
+<img src="https://raw.githubusercontent.com/nomanr/WeekCalendar/master/images/gif.gif" width="400">
 
 
 <h3>Setup</h3>
